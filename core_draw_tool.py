@@ -38,6 +38,11 @@ def draw_rect(wid, pos_x, pos_y, width, height):
 def draw_rect_border(wid, pos_x, pos_y, width, height):
     draw_line(wid, pos_x, pos_y, pos_x+width, pos_y)
     draw_line(wid, pos_x+width, pos_y, pos_x+width, pos_y+height)
-    draw_line(wid, pos_x+width, height, pos_x, pos_y+height)
+    draw_line(wid, pos_x+width, pos_y + height, pos_x, pos_y+height)
     draw_line(wid, pos_x, height, pos_x, pos_y)
+
+
+def draw_texture(wid, texture, pos_x, pos_y, width, height):
+    pos_y = invert_y(wid, pos_y)
+    Rectangle(texture=texture, pos=(pos_x + wid.x, pos_y + wid.y), size=(width, height))
 

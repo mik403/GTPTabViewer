@@ -3,20 +3,12 @@ from kivy.uix.widget import Widget
 from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
 from kivy.app import App
-from kivy.core.image import Image
 from functools import partial
 from tab_drawer import TabDrawer
-
-class MusicTextures:
-    def __init__(self):
-        self.logo = Image('mylogo.png').texture
-        self.logoName = 'mylogo.png'
-
 
 class TabViewerApp(App):
 
     def init_resources(self):
-        self.img = MusicTextures()
         self.tab_drawer = TabDrawer()
         self.tab_drawer.set_tab('nirvana-smells_like_teen_spirit.gp3')
 

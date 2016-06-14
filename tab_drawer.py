@@ -16,7 +16,7 @@ class TabDrawer:
         self.img = MusicTextures()
 
     def set_tab(self, source):
-        self.string_step = 0.15
+        self.string_step = 1 / 5.
         self.curl = guitarpro.parse(source)
         self.count_ver = 2
         self.count_hor = 3
@@ -33,7 +33,6 @@ class TabDrawer:
 
             texture_pos_y = pos_y + height
             Drawer.draw_texture(wid, self.img.background_measure, pos_x, texture_pos_y, width, height)
-            string_step = 1 / 5.
 
             # all notes should be aligned with some empty space from both side
             empty_space = 20
@@ -44,7 +43,7 @@ class TabDrawer:
             for beat in beats:
                 beat_pos_x = pos_x + width * (beat_number / len(beats))
                 for note in beat.notes:
-                    beat_pos_y = string_step * (note.string-3)
+                    beat_pos_y = self.string_step * (note.string-3)
                     font_size = 20
                     Drawer.draw_text(wid=wid, pos_x=beat_pos_x, pos_y=pos_y + height * beat_pos_y + font_size,
                                      font_size=font_size,
@@ -52,9 +51,9 @@ class TabDrawer:
                 beat_number += 1.
 
     # measure position and count to draw
-    def draw_tab(self, wid, pos=0, count=0):
+    def draw_tab(self, wid, page_number):
         track = self.curl.tracks[0]
-
+        curr_measure = page_number * (self.count_ver * self.count_hor)
         measure_width = wid.width / (self.count_hor+1)
         measure_height = wid.height / (self.count_ver+1)
 
@@ -66,4 +65,5 @@ class TabDrawer:
             curr_padding_ver += empty_space_ver
             for hor_i in range(0, self.count_hor):
                 self.draw_measure(wid, hor_i*measure_width + empty_space_hor, ver_i*measure_height + curr_padding_ver,
-                                  measure_width, measure_height, track.measures[0].voices[0].beats)
+                                  measure_width, measure_height, track.measures[curr_measure].voices[0].beats)
+                curr_measure += 1

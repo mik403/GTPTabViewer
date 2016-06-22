@@ -20,6 +20,7 @@ class TabDrawer:
         self.curl = guitarpro.parse(source)
         self.count_ver = 2
         self.count_hor = 3
+        self.measure_count = len(self.curl.tracks[0].measures)
 
     def draw_background(self, wid):
         with wid.canvas:
@@ -64,6 +65,7 @@ class TabDrawer:
         for ver_i in range(0, self.count_ver):
             curr_padding_ver += empty_space_ver
             for hor_i in range(0, self.count_hor):
-                self.draw_measure(wid, hor_i*measure_width + empty_space_hor, ver_i*measure_height + curr_padding_ver,
-                                  measure_width, measure_height, track.measures[curr_measure].voices[0].beats)
+                if(curr_measure < self.measure_count):
+                    self.draw_measure(wid, hor_i*measure_width + empty_space_hor, ver_i*measure_height + curr_padding_ver,
+                                      measure_width, measure_height, track.measures[curr_measure].voices[0].beats)
                 curr_measure += 1

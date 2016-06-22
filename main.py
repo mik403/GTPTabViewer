@@ -6,16 +6,21 @@ from kivy.app import App
 from kivy.clock import Clock
 from functools import partial
 from tab_drawer import TabDrawer
+import WebFileLoader
 
 class TabViewerApp(App):
 
     def init_resources(self):
-        self.tab_name = 'nirvana-smells_like_teen_spirit.gp3'
+        #self.tab_name = 'nirvana-smells_like_teen_spirit.gp3'
+        self.tab_name = WebFileLoader.download_tab(self)
+        print(self.tab_name)
         self.tab_drawer = TabDrawer()
         self.tab_drawer.set_tab(self.tab_name)
         self.page_number=0
 
         self.update_labels()
+
+
 
     def update_labels(self):
         self.tab_name_label.text = self.tab_name
